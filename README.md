@@ -30,3 +30,5 @@ Display the sample metadata, i.e., an individual's demographic information.
 Display each key-value pair from the metadata JSON object somewhere on the page.
 
 Update all the plots when a new sample is selected. 
+
+//helpers source codes from https://github.com/JeremyTallant/belly-button-challenge, https://github.com/GabbyOlivares/Plotly-Challenge/blob/main/app.js, https://plotly.com/javascript/bubble-charts/
