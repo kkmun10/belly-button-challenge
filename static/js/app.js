@@ -1,4 +1,4 @@
-// Place url in a constant variable
+// URL
 const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json"
 
 // Fetch the JSON data and console log it
@@ -6,56 +6,51 @@ d3.json(url).then(function(data) {
   console.log(data);
 });
 
-// Initialize the dashboard at start up 
+// function to initialize dashboard 
 function init() {
+	//select the dropdown menu
+		let dropdownMenu = d3.select("#selDataset");
 
-    // Use D3 to select the dropdown menu
-    let dropdownMenu = d3.select("#selDataset");
+	//add ids to dropdown menu
+		d3.json(url).then((data) => {
 
-    // Use D3 to get sample names and populate the drop-down selector
-    d3.json(url).then((data) => {
-        
-        // Set a variable for the sample names
-        let names = data.names;
+	// Set a variable for the sample names
+		let names = data.names;
 
-        // Add samples to dropdown menu
-        names.forEach((id) => {
+	// Add samples to dropdown menu
+		names.forEach((id) => {
 
-            // Log the value of id for each iteration of the loop
-            console.log(id);
+	// Log the value of id for each iteration of the loop
+		console.log(id);
 
-            dropdownMenu.append("option")
+	//append to menu
+		dropdownMenu.append("option")
             .text(id)
             .property("value",id);
-        });
+		});
+	
 
-        // Set the first sample from the list
-        let sample_one = names[0];
-
-        // Log the value of sample_one
-        console.log(sample_one);
+	//first sample from the list
+        let sample1 = names[0];
+        console.log(sample1);
 
         // Build the initial plots
-        buildMetadata(sample_one);
-        bar(sample_one);
-        bubble(sample_one);
+        buildMetadata(sample1);
+        barChart(sample1);
+        bubbleChart(sample1);
     });
 };
 
-// Function that populates info
+// Function that to build metadata
 function buildMetadata(sample) {
+	// Use D3 to retrieve all of the data
+		d3.json(url).then((data) => {
 
-    // Use D3 to retrieve all of the data
-    d3.json(url).then((data) => {
+	// Retrieve all metadata
+		let metadata = data.metadata;
 
-        // Retrieve all metadata
-        let metadata = data.metadata;
-
-        // Filter based on the value of the sample
-        let value = metadata.filter(result => result.id == sample);
-
-        // Log the array of metadata objects after the have been filtered
-        console.log(value)
+	// Filteron the value of the sample
+		let value = metadata.filter(result => result.id == sample);
 
         // Get the first index from the array
         let valueData = value[0];
@@ -76,7 +71,7 @@ function buildMetadata(sample) {
 };
 
 // Function that builds the bar chart
-function bar(sample) {
+function barChart(sample) {
 
     // Use D3 to retrieve all of the data
     d3.json(url).then((data) => {
@@ -123,7 +118,7 @@ function bar(sample) {
 };
 
 // Function that builds the bubble chart
-function bubble(sample) {
+function bubbleChart(sample) {
 
     // Use D3 to retrieve all of the data
     d3.json(url).then((data) => {
@@ -177,8 +172,8 @@ function optionChanged(value) {
 
     // Call all functions 
     buildMetadata(value);
-    bar(value);
-    bubble(value);
+    barChart(value);
+    bubbleChart(value);
 };
 
 // Call the initialize function
